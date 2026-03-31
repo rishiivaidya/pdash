@@ -1,15 +1,15 @@
 import {
-    addDoc,
-    collection,
-    doc,
-    getDoc,
-    getDocs,
-    orderBy,
-    query,
-    runTransaction,
-    serverTimestamp,
-    updateDoc,
-    where,
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  runTransaction,
+  serverTimestamp,
+  updateDoc,
+  where,
 } from "firebase/firestore";
 import { auth, db } from "../firebase";
 
@@ -177,4 +177,18 @@ export async function cancelRequest(requestId: string) {
   await updateDoc(requestRef, {
     status: "CANCELLED",
   });
+}
+
+export async function getRequestById(requestId: string) {
+  const requestRef = doc(db, "requests", requestId);
+  const snap = await getDoc(requestRef);
+
+  if (!snap.exists()) {
+    throw new Error("Request not found");
+  }
+
+  return {
+    id: snap.id,
+    ...snap.data(),
+  };
 }

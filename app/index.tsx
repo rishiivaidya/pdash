@@ -1,5 +1,5 @@
-import TestBackendScreen from "./test_backend";
+import { Redirect } from "expo-router";
 
 export default function Index() {
-  return <TestBackendScreen />;
+  return <Redirect href="/login" />;
 }
