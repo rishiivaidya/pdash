@@ -13,7 +13,7 @@ export default function SignupScreen() {
     try {
       await signUp(name, email, password, role);
       alert("Signed up");
-      router.replace("/login");
+      router.replace("/");
     } catch (error: any) {
       alert(error?.message || "Signup failed");
     }
@@ -61,7 +61,7 @@ export default function SignupScreen() {
       <Button title="Sign Up" onPress={handleSignup} />
 
       <View style={{ marginTop: 10 }}>
-        <Button title="Go to Login" onPress={() => router.push("/login")} />
+        <Button title="Go to Login" onPress={() => router.push("/")} />
       </View>
     </SafeAreaView>
   );

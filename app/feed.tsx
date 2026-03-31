@@ -31,7 +31,7 @@ export default function FeedScreen() {
 
   async function handleLogout() {
     await logOut();
-    router.replace("/login");
+    router.replace("/");
   }
 
   useEffect(() => {
