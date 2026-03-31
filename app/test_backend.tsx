@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
-  Alert,
   Button,
   FlatList,
   SafeAreaView,
@@ -37,41 +36,48 @@ export default function TestBackendScreen() {
 
   async function handleSignUp() {
     try {
+      console.log("Sign up clicked");
       await signUp(name, email, password);
-      Alert.alert("Success", "Signed up");
+      alert("Signed up successfully");
     } catch (error: any) {
-      Alert.alert("Signup failed", error.message);
+      console.error("Signup failed:", error);
+      alert(error?.message || "Signup failed");
     }
   }
 
   async function handleLogIn() {
     try {
+      console.log("Log in clicked");
       await logIn(email, password);
-      Alert.alert("Success", "Logged in");
+      alert("Logged in successfully");
     } catch (error: any) {
-      Alert.alert("Login failed", error.message);
+      console.error("Login failed:", error);
+      alert(error?.message || "Login failed");
     }
   }
 
   async function handleCreateRequest() {
     try {
+      console.log("Create request clicked");
       await createRequest(title, details);
-      Alert.alert("Success", "Request created");
+      alert("Request created");
       setTitle("");
       setDetails("");
-      await loadRequests();
     } catch (error: any) {
-      Alert.alert("Create failed", error.message);
+      console.error("Create failed:", error);
+      alert(error?.message || "Create failed");
     }
   }
 
   async function loadRequests() {
     try {
+      console.log("Load requests clicked");
       setLoading(true);
       const data = await getOpenRequests();
       setRequests(data as RequestItem[]);
     } catch (error: any) {
-      Alert.alert("Load failed", error.message);
+      console.error("Load failed:", error);
+      alert(error?.message || "Load failed");
     } finally {
       setLoading(false);
     }
@@ -79,17 +85,15 @@ export default function TestBackendScreen() {
 
   async function handleClaim(requestId: string) {
     try {
+      console.log("Claim clicked:", requestId);
       await claimRequest(requestId);
-      Alert.alert("Success", "Request claimed");
+      alert("Request claimed");
       await loadRequests();
     } catch (error: any) {
-      Alert.alert("Claim failed", error.message);
+      console.error("Claim failed:", error);
+      alert(error?.message || "Claim failed");
     }
   }
-
-  useEffect(() => {
-    loadRequests();
-  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1, padding: 16 }}>
